@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Добро пожаловать на наш сайт!</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'main:product_list' %}">Список продуктов</a></li>
+                <li><a href="{% url 'main:product_detail' product_id=1 %}">Пример продукта</a></li>
+            </ul>
+        </nav>
+    </header>
+</body>
+</html>

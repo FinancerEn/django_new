@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детали продукта</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Информация о продукте</h1>
+        <nav>
+            <a href="{% url 'product_list' %}">Назад к списку продуктов</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>{{ product.name }}</h2>
+            <p><strong>Цена:</strong> {{ product.price }} руб.</p>
+            <p><strong>Описание:</strong> {{ product.description|default:"Описание отсутствует" }}</p>
+            <p><strong>Дата добавления:</strong> {{ product.created_at|date:"d.m.Y H:i" }}</p>
+        </section>
+
+        <section>
+            <h3>Связанные данные</h3>
+            <p>Информацию о клиентах, заказах или других моделях можно добавить здесь, если потребуется.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My Project. Все права защищены.</p>
+    </footer>
+</body>
+</html>

@@ -1,18 +1,3 @@
-h1 {
-  font-family: Arial, sans-serif; /* Укажите шрифт */
-  color: #afadad; /* Укажите цвет */
-}
-
-a {
-  font-family: Verdana, sans-serif; /* Укажите шрифт для ссылок */
-  color: wheat; /* Укажите цвет ссылок */
-  text-decoration: none; /* Уберите подчеркивание */
-}
-
-a:hover {
-  color: white; /* Цвет при наведении */
-}
-
 body {
   background-image: url("{% static 'deps/images/main_background.jpg' %}");
   background-repeat: no-repeat;

@@ -5,17 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная страница</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'deps/css/my_css.css' %}">
 </head>
 <body>
+
     <header>
-        <h1>Добро пожаловать на наш сайт!</h1>
+        <h1>Добро пожаловать на SilentChain</h1>
         <nav>
             <ul>
-                <li><a href="{% url 'main:product_list' %}">Список продуктов</a></li>
-                <li><a href="{% url 'main:product_detail' product_id=1 %}">Пример продукта</a></li>
+                <li><a href="{% url 'main:product_list' %}">Друзья</a></li>
+                <li><a href="{% url 'messages_app:dialogs' %}">Сообщения</a></li>
             </ul>
         </nav>
     </header>
+
+    <script>
+        document.body.style.backgroundImage = "url('{% static 'deps/images/main_background.jpg' %}')";
+    </script>
+    <!-- Если захочу сделать фон серый 
+    <script>
+        document.body.style.backgroundColor = "#333333"; /* Темно-серый цвет */
+    </script> -->
+    
 </body>
 </html>

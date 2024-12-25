@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сообщения</title>
+    <link rel="stylesheet" href="{% static 'deps/css/my_css.css' %}">
+</head>
+<body>
+    <h1>Мои диалоги</h1>
+    <ul>
+        {% for dialog in dialogs %}
+            <li>
+                <strong>{{ dialog.username }}</strong>: {{ dialog.last_message }}
+                <em>({{ dialog.timestamp }})</em>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'main:index' %}">Назад на главную</a>
+
+    <script>
+        document.body.style.backgroundImage = "url('{% static 'deps/images/main_background.jpg' %}')";
+    </script>
+</body>
+</html>

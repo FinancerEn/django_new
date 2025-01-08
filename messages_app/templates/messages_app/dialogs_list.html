@@ -4,7 +4,7 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сообщения</title>
+    <title>Мои диалоги</title>
     <link rel="stylesheet" href="{% static 'deps/css/my_css.css' %}">
 </head>
 <body>
@@ -12,8 +12,9 @@
     <ul>
         {% for dialog in dialogs %}
             <li>
-                <strong>{{ dialog.username }}</strong>: {{ dialog.last_message }}
-                <em>({{ dialog.timestamp }})</em>
+                <a href="{% url 'messages_app:dialog_detail' dialog.id %}">
+                    Диалог с {{ dialog.participants.exclude(id=request.user.id).first.username }}
+                </a>
             </li>
         {% endfor %}
     </ul>
@@ -24,3 +25,4 @@
     </script>
 </body>
 </html>
+

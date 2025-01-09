@@ -23,4 +23,5 @@ urlpatterns = [
     path('__debug__/', include(debug_toolbar.urls)),
     path('', include('main.urls', namespace='main')),
     path('messages/', include('messages_app.urls', namespace='messages_app')),
+    path('users/', include('users.urls', namespace='users')),
 ]

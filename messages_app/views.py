@@ -4,9 +4,13 @@ from django.urls import reverse
 from django.contrib import messages
 from .models import Dialog, Message
 from .forms import SendMessageForm
+from django.contrib.auth.decorators import login_required
 
 
 # Вывод всех диалогов текущего пользователя:
+# Применяем декоратор для обработки случая когда пользователь не аутентифицирован.
+# декоратор направит неаутентифицированных пользователей на страницу входа.
+@login_required
 def dialogs_list(request):
     dialogs = Dialog.objects.filter(participants=request.user)
     context = {"dialogs": dialogs}

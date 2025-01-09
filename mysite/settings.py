@@ -30,7 +30,11 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
+AUTH_USER_MODEL = "users.CustomUser"
+
+LOGIN_URL = "users:login"  # Указывает, куда перенаправлять неавторизованных пользователей
+LOGIN_REDIRECT_URL = "main:index"  # Куда перенаправлять после входа
+LOGOUT_REDIRECT_URL = "users:login"  # Куда перенаправлять после выхода
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -43,6 +47,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'main',
     'messages_app',
+    'users',
 ]
 
 MIDDLEWARE = [

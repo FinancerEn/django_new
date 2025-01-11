@@ -10,10 +10,10 @@
 <body>
     <h1>Мои диалоги</h1>
     <ul>
-        {% for dialog in dialogs %}
+        {% for item in dialogs %}
             <li>
-                <a href="{% url 'messages_app:dialog_detail' dialog.id %}">
-                    Диалог с {{ dialog.participants.exclude(id=request.user.id).first.username }}
+                <a href="{% url 'messages_app:dialog_detail' item.dialog.id %}">
+                    Диалог с {{ item.other_participant }}
                 </a>
             </li>
         {% endfor %}

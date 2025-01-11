@@ -12,14 +12,24 @@ from django.contrib.auth.decorators import login_required
 # декоратор направит неаутентифицированных пользователей на страницу входа.
 @login_required
 def dialogs_list(request):
-    dialogs = Dialog.objects.filter(participants=request.user)
-    context = {"dialogs": dialogs}
+    dialogs = Dialog.objects.filter(participants=request.user).prefetch_related('participants')
+
+    dialogs_with_users = []
+    for dialog in dialogs:
+        # Находим другого участника диалога
+        other_participant = dialog.participants.exclude(id=request.user.id).first()
+        dialogs_with_users.append({
+            'dialog': dialog,
+            'other_participant': other_participant.username if other_participant else "Нет участника",
+        })
+
+    context = {"dialogs": dialogs_with_users}
     return render(request, 'messages_app/dialogs_list.html', context)
 
 
 # Отображение сообщений конкретного диалога:
 def dialog_detail(request, dialog_id):
-    dialog = get_object_or_404(Dialog, id=dialog_id, participants=request.user)
+    dialog = get_object_or_404(Dialog.objects.prefetch_related('participants'), id=dialog_id, participants=request.user)
     messages_list = dialog.message_set.all().order_by('timestamp')
     context = {"dialog": dialog, "messages": messages_list}
     return render(request, 'messages_app/dialog_detail.html', context)
@@ -27,9 +37,8 @@ def dialog_detail(request, dialog_id):
 
 # Контроллер для отправки сообщения:
 def send_message(request, dialog_id):
-    dialog = get_object_or_404(Dialog, id=dialog_id)
+    dialog = get_object_or_404(Dialog.objects.prefetch_related('participants'), id=dialog_id)
 
-    # Проверка прав доступа
     if not dialog.participants.filter(id=request.user.id).exists():
         messages.error(request, "Вы не являетесь участником этого диалога.")
         return HttpResponseRedirect(reverse('messages_app:dialogs_list'))
@@ -44,15 +53,12 @@ def send_message(request, dialog_id):
                 messages.error(request, "Ошибка: получатель не найден.")
                 return HttpResponseRedirect(reverse('messages_app:dialog_detail', args=[dialog_id]))
 
-            # Создание сообщения
             message = Message.objects.create(
                 sender=request.user, receiver=receiver, content=content
             )
-            # Обновление информации о последнем сообщении в диалоге
             dialog.last_message = message
             dialog.save()
 
-            # Уведомление об успешной отправке
             messages.success(request, "Сообщение успешно отправлено.")
             return HttpResponseRedirect(reverse('messages_app:dialog_detail', args=[dialog_id]))
     else:

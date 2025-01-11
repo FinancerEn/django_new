@@ -39,4 +39,5 @@ class Dialog(models.Model):
         return self.participants.filter(id=user.id).exists()
 
     def __str__(self):
-        return f"Диалог между {', '.join([user.username for user in self.participants.all()])}"
+        participants = [user.username for user in self.participants.all()]
+        return f"Диалог между {', '.join(participants[:5])}" + (' и других' if len(participants) > 5 else '')

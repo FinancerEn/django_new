@@ -1,28 +1,13 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мои диалоги</title>
-    <link rel="stylesheet" href="{% static 'deps/css/my_css.css' %}">
-</head>
-<body>
-    <h1>Мои диалоги</h1>
+{% extends 'base/base.html' %}
+
+{% block title %}Список друзей{% endblock %}
+
+{% block content %}
+    <h1>Список друзей</h1>
     <ul>
-        {% for item in dialogs %}
-            <li>
-                <a href="{% url 'messages_app:dialog_detail' item.dialog.id %}">
-                    Диалог с {{ item.other_participant }}
-                </a>
-            </li>
+        {% for friend in friends %}
+            <li>{{ friend.name }} ({{ friend.age }} лет)</li>
         {% endfor %}
     </ul>
-    <a href="{% url 'main:index' %}">Назад на главную</a>
-
-    <script>
-        document.body.style.backgroundImage = "url('{% static 'deps/images/main_background.jpg' %}')";
-    </script>
-</body>
-</html>
-
+    <a href="{% url 'main:index' %}">На главную</a>
+{% endblock %}

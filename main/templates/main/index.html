@@ -1,31 +1,7 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная страница</title>
-    <link rel="stylesheet" href="{% static 'deps/css/my_css.css' %}">
-</head>
-<body>
+{% extends 'base/base.html' %}
 
-    <header>
-        <h1>Добро пожаловать на SilentChain</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'users:friends_list' %}">Друзья</a></li>
-                <li><a href="{% url 'messages_app:dialogs_list' %}">Сообщения</a></li>
-            </ul>
-        </nav>
-    </header>
+{% block title %}Главная страница{% endblock %}
 
-    <script>
-        document.body.style.backgroundImage = "url('{% static 'deps/images/main_background.jpg' %}')";
-    </script>
-    <!-- Если захочу сделать фон серый 
-    <script>
-        document.body.style.backgroundColor = "#333333"; /* Темно-серый цвет */
-    </script> -->
-    
-</body>
-</html>
+{% block content %}
+    <h1>Главная страница</h1>
+{% endblock %}

@@ -14,7 +14,7 @@ a:hover {
 }
 
 body {
-  background-image: url("{% static 'deps/images/main_background.jpg' %}");
+  background-image: url('/static/deps/images/main_background.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center center;
@@ -55,7 +55,7 @@ body {
   padding: 5px 10px; /* Внутренние отступы */
   border-radius: 3px; /* Скругление углов */
   font-size: 1rem; /* Размер шрифта */
-  box-shadow: 2px 2px 15px 9px #000000; /* Тень элемента 
+  box-shadow: 2px 2px 15px 9px #000000; /* Тень элемента */
   
   color: white; /* Цвет текста */
   background-color: rgb(11, 170, 6); /* Цвет фона */

@@ -26,6 +26,11 @@ class Message(models.Model):
         self.full_clean()  # Проверяем валидацию перед сохранением
         super().save(*args, **kwargs)
 
+    class Meta:
+        verbose_name = "Сообщение"
+        verbose_name_plural = "Сообщения"
+        ordering = ['-timestamp']
+
     def __str__(self):
         return f"От {self.sender} к {self.receiver}: {self.content[:20]}"
 
@@ -39,5 +44,10 @@ class Dialog(models.Model):
         return self.participants.filter(id=user.id).exists()
 
     def __str__(self):
+        # participants поле для связи участников с диалогами.
         participants = [user.username for user in self.participants.all()]
         return f"Диалог между {', '.join(participants[:5])}" + (' и других' if len(participants) > 5 else '')
+
+    class Meta:
+        verbose_name = "Диалог"
+        verbose_name_plural = "Диалоги"
